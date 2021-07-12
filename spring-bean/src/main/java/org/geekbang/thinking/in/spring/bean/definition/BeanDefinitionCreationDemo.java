@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.bean;
+package org.geekbang.thinking.in.spring.bean.definition;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.MutablePropertyValues;

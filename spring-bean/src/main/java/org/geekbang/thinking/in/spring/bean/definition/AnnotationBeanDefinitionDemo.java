@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.bean;
+package org.geekbang.thinking.in.spring.bean.definition;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.BeanFactory;
@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Map;
 
 /**

@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.bean;
+package org.geekbang.thinking.in.spring.bean.definition;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.BeanFactory;
@@ -15,7 +15,7 @@ public class BeanAliasDemo {
     public static void main(String[] args) {
         // 配置 XML 配置文件
         // 启动 Spring 应用上下文
-        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:/META-INF/bean-alias.xml");
+        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:/META-INF/bean-definitions-context.xml");
         User fkzUser = beanFactory.getBean("fkz-user", User.class);
         User user = beanFactory.getBean("user", User.class);
         System.out.println("fkzUser == user: " + (fkzUser == user));
