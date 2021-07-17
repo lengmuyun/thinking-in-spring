@@ -43,4 +43,9 @@ public class DefaultUserFactory implements UserFactory, InitializingBean, Dispos
         System.out.println("自定义销毁方法 doDestroy() : UserFactory 销毁中...");
     }
 
+    @Override
+    public void finalize() throws Throwable {
+        System.out.println("finalize() : GC回收中...");
+    }
+
 }
