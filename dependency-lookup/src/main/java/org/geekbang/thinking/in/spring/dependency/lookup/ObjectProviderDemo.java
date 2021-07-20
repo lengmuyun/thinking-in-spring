@@ -1,8 +1,10 @@
 package org.geekbang.thinking.in.spring.dependency.lookup;
 
+import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 /**
  * 通过 {@link org.springframework.beans.factory.ObjectProvider} 进行依赖查找
@@ -19,14 +21,38 @@ public class ObjectProviderDemo {
         applicationContext.register(ObjectProviderDemo.class);
         // 启动 Spring 应用上下文
         applicationContext.refresh();
+
         lookupByObjectProvider(applicationContext);
+        lookupIfAvailable(applicationContext);
+        lookupStreamOps(applicationContext);
+
         // 关闭 Spring 应用上下文
         applicationContext.close();
     }
 
+    private static void lookupStreamOps(AnnotationConfigApplicationContext applicationContext) {
+        ObjectProvider<String> beanProvider = applicationContext.getBeanProvider(String.class);
+//        for (String s : beanProvider) {
+//            System.out.println(s);
+//        }
+        beanProvider.stream().forEach(System.out::println);
+    }
+
+    private static void lookupIfAvailable(AnnotationConfigApplicationContext applicationContext) {
+        ObjectProvider<User> beanProvider = applicationContext.getBeanProvider(User.class);
+        User user = beanProvider.getIfAvailable(User::createUser);
+        System.out.println("User: " + user);
+    }
+
     @Bean
+    @Primary
     public String helloWorld() {
         return "Hello, World!";
+    }
+
+    @Bean
+    public String message() {
+        return "Message";
     }
 
     private static void lookupByObjectProvider(AnnotationConfigApplicationContext applicationContext) {
