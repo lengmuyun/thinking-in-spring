@@ -8,7 +8,6 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 /**
