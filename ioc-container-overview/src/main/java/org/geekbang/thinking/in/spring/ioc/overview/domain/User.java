@@ -3,6 +3,9 @@ package org.geekbang.thinking.in.spring.ioc.overview.domain;
 import org.geekbang.thinking.in.spring.ioc.overview.enums.City;
 import org.springframework.core.io.Resource;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author fangkuangzhang
  * @date 2021/7/4 13:58
@@ -14,6 +17,10 @@ public class User {
     private String name;
 
     private City city;
+
+    private City[] workCities;
+
+    private List<City> lifeCities;
 
     private Resource configFileLocation;
 
@@ -41,6 +48,22 @@ public class User {
         this.city = city;
     }
 
+    public City[] getWorkCities() {
+        return workCities;
+    }
+
+    public void setWorkCities(City[] workCities) {
+        this.workCities = workCities;
+    }
+
+    public List<City> getLifeCities() {
+        return lifeCities;
+    }
+
+    public void setLifeCities(List<City> lifeCities) {
+        this.lifeCities = lifeCities;
+    }
+
     public Resource getConfigFileLocation() {
         return configFileLocation;
     }
@@ -55,6 +78,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", city=" + city +
+                ", workCities=" + Arrays.toString(workCities) +
+                ", lifeCities=" + lifeCities +
                 ", configFileLocation=" + configFileLocation +
                 '}';
     }
