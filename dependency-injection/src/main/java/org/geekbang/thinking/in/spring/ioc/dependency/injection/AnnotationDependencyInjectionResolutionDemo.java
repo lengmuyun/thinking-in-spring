@@ -9,31 +9,29 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
+import javax.inject.Inject;
 import java.util.Set;
 
 /**
- * {@link ObjectProvider} 实现延迟依赖注入
+ * {@link Qualifier} 实现延迟依赖注入
  *
  * @author fangkuangzhang
  * @date 2021/8/4 7:55
  */
 @Configuration
-public class LazyAnnotationDependencyInjectionDemo {
+public class AnnotationDependencyInjectionResolutionDemo {
 
     @Autowired
     private User user; // 实时注入
 
-    @Autowired
-    private ObjectProvider<User> userObjectProvider;
-
-    @Autowired
-    private ObjectFactory<Set<User>> userObjectFactory;
+    @Inject
+    private User injectedUser;
 
     public static void main(String[] args) {
         // 创建 BeanFactory 容器
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         // 注册 Configuration Class（配置类） -> Spring Bean
-        applicationContext.register(LazyAnnotationDependencyInjectionDemo.class);
+        applicationContext.register(AnnotationDependencyInjectionResolutionDemo.class);
 
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(applicationContext);
 
@@ -45,18 +43,11 @@ public class LazyAnnotationDependencyInjectionDemo {
         applicationContext.refresh();
 
         // 依赖查找 AnnotationDependencyFieldInjectionDemo Bean
-        LazyAnnotationDependencyInjectionDemo demo = applicationContext.getBean(LazyAnnotationDependencyInjectionDemo.class);
+        AnnotationDependencyInjectionResolutionDemo demo = applicationContext.getBean(AnnotationDependencyInjectionResolutionDemo.class);
 
         // 期待super user
         System.out.println("demo.user: " + demo.user);
-        // 期待user、superUser
-        System.out.println("userObjectProvider: " + demo.userObjectProvider.getIfAvailable());
-        // 期待user、superUser
-        System.out.println("userObjectFactory: " + demo.userObjectFactory.getObject());
-
-        System.out.println("==================开始打印ObjectProvider的集合元素==================");
-        demo.userObjectProvider.forEach(System.out::println);
-        System.out.println("==================结束打印ObjectProvider的集合元素==================");
+        System.out.println("demo.injectedUser: " + demo.injectedUser);
 
         // 显示地关闭 Spring 应用上下文
         applicationContext.close();
