@@ -12,7 +12,7 @@ import org.springframework.core.io.ResourceLoader;
 import javax.annotation.PostConstruct;
 
 /**
- * TODO
+ * 依赖来源示例
  *
  * @author fangkuangzhang
  * @date 2021/9/29 22:38
@@ -51,7 +51,7 @@ public class DependencySourceDemo {
         try {
             return applicationContext.getBean(beanType);
         } catch (BeansException e) {
-            System.err.println("getBean of type: " + beanType.getName() + "失败!");
+            System.err.println("当前类型" + beanType.getName() + " 无法在 BeanFactory 中查找!");
         }
         return null;
     }
@@ -61,12 +61,6 @@ public class DependencySourceDemo {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         // 注册 Configuration Class（配置类） -> Spring Bean
         applicationContext.register(DependencySourceDemo.class);
-
-        XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(applicationContext);
-
-        String xmlResourcePath = "classpath:/META-INF/dependency-lookup-context.xml";
-        // 加载 XML 资源，解析并且生成 BeanDefinition
-        beanDefinitionReader.loadBeanDefinitions(xmlResourcePath);
 
         // 启动 Spring 应用上下文
         applicationContext.refresh();
