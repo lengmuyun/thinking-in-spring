@@ -39,11 +39,23 @@ public class BeanInitializationLifecycleDemo {
         @Override
         public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
             if ("superUser".equals(beanName) && SuperUser.class.equals(beanClass)) {
+                // 把配置完成 supreUser Bean 覆盖
                 return new SuperUser();
             }
-            return null;
+            return null; // 保持 Spring IoC 容器的实例化操作
         }
 
+        @Override
+        public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+            if ("user".equals(beanName) && User.class.equals(bean.getClass())) {
+                User user = (User) bean;
+                user.setId(2L);
+                user.setName("fkz");
+                // user 对象不允许属性赋值(填入) (配置元信息 -> 属性值)
+                return false;
+            }
+            return true;
+        }
     }
 
 }
