@@ -6,9 +6,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.EncodedResource;
 
 /**
  * Bean 初始化生命周期示例
@@ -22,12 +19,7 @@ public class BeanInitializationLifecycleDemo {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
-        String location = "/META-INF/dependency-lookup-context.xml";
-        // 基于 ClassPath 加载 properties 资源
-        Resource resource = new ClassPathResource(location);
-        // 指定字符编码 UTF-8
-        EncodedResource encodedResource = new EncodedResource(resource, "UTF-8");
-        int beansNumber = beanDefinitionReader.loadBeanDefinitions(encodedResource);
+        int beansNumber = beanDefinitionReader.loadBeanDefinitions("META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml");
         System.out.println("beans number: " + beansNumber);
         // 通过 Bean Id 和类型进行依赖查找
         User user = beanFactory.getBean("user", User.class);
@@ -36,6 +28,10 @@ public class BeanInitializationLifecycleDemo {
         // 通过 Bean Id 和类型进行依赖查找
         SuperUser superUser = beanFactory.getBean("superUser", SuperUser.class);
         System.out.println("superUser: " + superUser);
+
+        // 通过 Bean Id 和类型进行依赖查找
+        UserHolder userHolder = beanFactory.getBean("userHolder", UserHolder.class);
+        System.out.println("userHolder: " + userHolder);
     }
 
     public static class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
