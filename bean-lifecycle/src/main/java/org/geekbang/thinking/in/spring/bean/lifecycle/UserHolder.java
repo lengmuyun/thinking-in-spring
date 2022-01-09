@@ -6,8 +6,11 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+
+import javax.annotation.PostConstruct;
 
 /**
  * User Holder 类
@@ -15,7 +18,7 @@ import org.springframework.core.env.Environment;
  * @author fangkuangzhang
  * @date 2022/1/4 16:39
  */
-public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware {
+public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware, InitializingBean {
 
     private User user;
 
@@ -67,6 +70,26 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
                 ", number=" + number +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @PostConstruct
+    public void initPostConstruct() {
+        // postProcessBeforeInitialization V3 -> PostConstruct V4
+        this.description = "The user holder V4";
+        System.out.println("initPostConstruct() = " + this.description);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // PostConstruct V4 -> afterPropertiesSet V5
+        this.description = "The user holder V5";
+        System.out.println("afterPropertiesSet() = " + this.description);
+    }
+
+    public void init() {
+        // afterPropertiesSet V5 -> init-method V5
+        this.description = "The user holder V6";
+        System.out.println("init() = " + this.description);
     }
 
     @Override
