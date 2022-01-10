@@ -26,6 +26,9 @@ public class BeanInitializationLifecycleDemo {
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         int beansNumber = beanDefinitionReader.loadBeanDefinitions("META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml");
         System.out.println("beans number: " + beansNumber);
+
+        beanFactory.preInstantiateSingletons();
+
         // 通过 Bean Id 和类型进行依赖查找
         User user = beanFactory.getBean("user", User.class);
         System.out.println("user: " + user);

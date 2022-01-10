@@ -7,6 +7,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
@@ -18,7 +19,8 @@ import javax.annotation.PostConstruct;
  * @author fangkuangzhang
  * @date 2022/1/4 16:39
  */
-public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware, InitializingBean {
+public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware,
+        InitializingBean, SmartInitializingSingleton {
 
     private User user;
 
@@ -90,6 +92,13 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
         // afterPropertiesSet V5 -> init-method V5
         this.description = "The user holder V6";
         System.out.println("init() = " + this.description);
+    }
+
+    @Override
+    public void afterSingletonsInstantiated() {
+        // postProcessAfterInitialization V7 -> afterSingletonsInstantiated V8
+        this.description = "The user holder V8";
+        System.out.println("afterSingletonsInstantiated() = " + this.description);
     }
 
     @Override
