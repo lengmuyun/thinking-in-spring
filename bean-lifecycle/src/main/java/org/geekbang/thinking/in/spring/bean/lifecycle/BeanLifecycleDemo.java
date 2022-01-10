@@ -17,10 +17,10 @@ public class BeanLifecycleDemo {
     public static void main(String[] args) {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
-        // 添加CommonAnnotationBeanPostProcessor 解决@PostConstruct
-        beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
         // 添加 MyDestructionAwareBeanPostProcessor 执行销毁前回调
         beanFactory.addBeanPostProcessor(new MyDestructionAwareBeanPostProcessor());
+        // 添加CommonAnnotationBeanPostProcessor 解决@PostConstruct
+        beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
         int beansNumber = beanDefinitionReader.loadBeanDefinitions("META-INF/dependency-lookup-context.xml", "META-INF/bean-constructor-dependency-injection.xml");
         System.out.println("beans number: " + beansNumber);

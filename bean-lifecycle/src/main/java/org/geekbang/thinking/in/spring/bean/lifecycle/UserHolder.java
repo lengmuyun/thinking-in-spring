@@ -6,12 +6,14 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * User Holder 类
@@ -20,7 +22,7 @@ import javax.annotation.PostConstruct;
  * @date 2022/1/4 16:39
  */
 public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, EnvironmentAware,
-        InitializingBean, SmartInitializingSingleton {
+        InitializingBean, SmartInitializingSingleton, DisposableBean {
 
     private User user;
 
@@ -99,6 +101,26 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
         // postProcessAfterInitialization V7 -> afterSingletonsInstantiated V8
         this.description = "The user holder V8";
         System.out.println("afterSingletonsInstantiated() = " + this.description);
+    }
+
+    @PreDestroy
+    public void preDestory() {
+        // postProcessBeforeDestruction V9 -> @PreDestroy V10
+        this.description = "The user holder V10";
+        System.out.println("preDestory() = " + this.description);
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        // @PreDestroy V10 -> destory V11
+        this.description = "The user holder V11";
+        System.out.println("destroy() = " + this.description);
+    }
+
+    public void doDestroy() {
+        // destory V11 -> destory-method V12
+        this.description = "The user holder V12";
+        System.out.println("doDestroy() = " + this.description);
     }
 
     @Override
