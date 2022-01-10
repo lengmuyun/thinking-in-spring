@@ -143,4 +143,9 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
         this.environment = environment;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("The UserHolder is finalized...");
+    }
+
 }
