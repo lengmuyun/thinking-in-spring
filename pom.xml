@@ -17,6 +17,7 @@
         <module>dependency-source</module>
         <module>bean-lifecycle</module>
         <module>configuration-metadata</module>
+        <module>resource</module>
     </modules>
 
     <properties>
