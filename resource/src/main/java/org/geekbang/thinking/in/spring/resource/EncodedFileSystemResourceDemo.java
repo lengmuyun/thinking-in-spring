@@ -5,6 +5,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
 
 import java.io.IOException;
+import java.io.Reader;
 
 /**
  * 带有字符编码的 {@link FileSystemResource} 示例
@@ -20,6 +21,8 @@ public class EncodedFileSystemResourceDemo {
         String javaFilePath = System.getProperty("user.dir") + "/resource/src/main/java/org/geekbang/thinking/in/spring/resource/EncodedFileSystemResourceDemo.java";
         FileSystemResource fileSystemResource = new FileSystemResource(javaFilePath);
         EncodedResource encodedResource = new EncodedResource(fileSystemResource, "UTF-8");
-        System.out.println(IOUtils.toString(encodedResource.getInputStream(), "UTF-8"));
+        try (Reader reader = encodedResource.getReader()) {
+            System.out.println(IOUtils.toString(reader));
+        }
     }
 }
