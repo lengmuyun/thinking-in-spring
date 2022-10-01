@@ -95,7 +95,7 @@ public class DataBinderDemo {
 
     }
 
-    static class Company {
+    public static class Company {
 
         private String name;
 
