@@ -23,6 +23,7 @@
         <module>validation</module>
         <module>generic</module>
         <module>event</module>
+        <module>annotation</module>
     </modules>
 
     <properties>
