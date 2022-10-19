@@ -21,6 +21,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ioc-container-overview</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

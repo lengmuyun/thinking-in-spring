@@ -24,7 +24,10 @@ public class ProfileDemo {
         environment.setDefaultProfiles("odd");
 
         // 增加活跃的 Profile
-        environment.addActiveProfile("even");
+//        environment.addActiveProfile("even");
+
+        // --spring.profiles.active=even
+        // -Dspring.profiles.active=even
 
         // 启动 Spring 应用上下文
         context.refresh();
@@ -36,15 +39,15 @@ public class ProfileDemo {
         context.close();
     }
 
-    @Profile("even")
+//    @Profile("even")
     @Bean("number")
+    @Conditional(EvenProfileCondition.class)
     public Integer even() {
         return 2;
     }
 
-//    @Profile("odd")
+    @Profile("odd")
     @Bean("number")
-    @Conditional(EvenProfileCondition.class)
     public Integer odd() {
         return 1;
     }
