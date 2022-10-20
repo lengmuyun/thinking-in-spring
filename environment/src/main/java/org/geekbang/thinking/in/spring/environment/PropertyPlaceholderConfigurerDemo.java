@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.annotation;
+package org.geekbang.thinking.in.spring.environment;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
